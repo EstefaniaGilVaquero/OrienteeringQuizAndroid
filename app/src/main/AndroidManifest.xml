@@ -31,13 +31,13 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.ActivityPrincipal"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ActivityAprende"
             android:parentActivityName=".activity.ActivityPrincipal"
@@ -62,7 +62,7 @@
             android:name=".activity.ActivityRegistro"
             android:parentActivityName=".activity.ActivityLogin"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".activity.ResetPasswordActivity"></activity>
     </application>
 
 </manifest>

@@ -34,6 +34,7 @@ public class AdapterQuizMixto extends RecyclerView.Adapter {
     private ActivityQuizMixto activity;
     private String textoPregunta;
     private int ronda, aciertos, currentPunt;
+    private int numeroMaximoSimbolos = 98;
 
     public AdapterQuizMixto(ArrayList<Simbolo> simbolosQuiz, ActivityQuizMixto activity, String textoPregunta) {
         this.simbolosQuiz = simbolosQuiz;
@@ -77,15 +78,15 @@ public class AdapterQuizMixto extends RecyclerView.Adapter {
             viewHolder.cvSimbolo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (simbolo.getDescripcionCorta().equalsIgnoreCase(textoPregunta)) {
-                        //ACIERTO
-                        viewHolder.ivSimbolo.setImageResource(R.drawable.check_ok);
-                        setDialogAcierto(simbolo.getDescripcionCorta());
-                    } else {
-                        //ERROR
-                        viewHolder.ivSimbolo.setImageResource(R.drawable.check_ko);
-                        setDialogFallo(simbolo.getDescripcionCorta());
-                    }
+                if (simbolo.getDescripcionCorta().equalsIgnoreCase(textoPregunta)) {
+                    //ACIERTO
+                    viewHolder.ivSimbolo.setImageResource(R.drawable.check_ok);
+                    setDialogAcierto(simbolo.getDescripcionCorta());
+                } else {
+                    //ERROR
+                    viewHolder.ivSimbolo.setImageResource(R.drawable.check_ko);
+                    setDialogFallo(simbolo.getDescripcionCorta());
+                }
                 }
 
             });
@@ -124,9 +125,9 @@ public class AdapterQuizMixto extends RecyclerView.Adapter {
         DialogInterface.OnClickListener positiveClick = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //CADA 2 RONDAS, UN SIMBOLO MAS
-                if (esPar(aciertos)) {
-                    int cantidad = activity.getSYMBOLSTOGET();
+                //CADA X RONDAS, UN SIMBOLO MAS
+                int cantidad = activity.getSYMBOLSTOGET();
+                if (esMultiplo(aciertos) && cantidad <= numeroMaximoSimbolos) {
                     cantidad++;
                     activity.setSYMBOLSTOGET(cantidad);
                 }
@@ -232,8 +233,8 @@ public class AdapterQuizMixto extends RecyclerView.Adapter {
     }
 
 
-    public static boolean esPar(int numero) {
-        if (numero % 2 == 0) {
+    public static boolean esMultiplo(int numero) {
+        if (numero % 3 == 0) {
             return true;
         } else {
             return false;

@@ -133,6 +133,8 @@ public class ActivityRegistro extends AppCompatActivity {
                     }
                 }
             });
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

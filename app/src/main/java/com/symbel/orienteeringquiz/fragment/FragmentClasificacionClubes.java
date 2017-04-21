@@ -139,17 +139,20 @@ public class FragmentClasificacionClubes extends Fragment {
         for (int i = 0; i < listaClasifUsers.size(); i++) {
             Clasificacion clasifUser = listaClasifUsers.get(i);
 
-            if (!clasifUser.getClub().equalsIgnoreCase(currentClub)) {
+            String clubUsuario = clasifUser.getClub().toUpperCase().trim();
+            currentClub = currentClub.toUpperCase().trim();
+
+            if (clubUsuario.contentEquals(currentClub)) {
+                currentClubPunt = currentClubPunt + clasifUser.getPuntuacion();
+            } else {
                 Clasificacion clasifClub = new Clasificacion();
                 if (!currentClub.isEmpty()) {
                     clasifClub.setClub(currentClub);
                     clasifClub.setPuntuacion(currentClubPunt);
                     listaClasifClubes.add(clasifClub);
                 }
-                currentClub = clasifUser.getClub();
+                currentClub = clubUsuario;
                 currentClubPunt = clasifUser.getPuntuacion();
-            } else {
-                currentClubPunt = currentClubPunt + clasifUser.getPuntuacion();
             }
 
             if (i == listaClasifUsers.size() - 1) {
