@@ -2,6 +2,7 @@ package com.symbel.orienteeringquiz.adapter;
 
 
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -122,7 +123,34 @@ public class AdapterQuizMixto extends RecyclerView.Adapter {
         //ACTUALIZAMOS EL JUEGO
         updateJuego();
 
-        DialogInterface.OnClickListener positiveClick = new DialogInterface.OnClickListener() {
+        DialogInterface.OnDismissListener dismissDialog = new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //CADA X RONDAS, UN SIMBOLO MAS
+                int cantidad = activity.getSYMBOLSTOGET();
+                if (esMultiplo(aciertos) && cantidad <= numeroMaximoSimbolos) {
+                    cantidad++;
+                    activity.setSYMBOLSTOGET(cantidad);
+                }
+                activity.nuevoJuego();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // Actions to do after 2 seconds
+                        DialogManager.dismiss();
+                    }
+                }, 2000);
+            }
+        };
+
+
+
+        String message = activity.getString(R.string.has_acertado, descripcionCorta);
+        DialogManager.dialogShow(activity, dismissDialog, message, R.drawable.check_ok);
+
+
+        /*DialogInterface.OnClickListener positiveClick = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //CADA X RONDAS, UN SIMBOLO MAS
@@ -139,7 +167,7 @@ public class AdapterQuizMixto extends RecyclerView.Adapter {
         String title = activity.getString(R.string.felicidades);
         String message = activity.getString(R.string.has_acertado, descripcionCorta);
 
-        DialogManager.dialogAccept(activity, title, message, positiveClick, positiveMessage, R.drawable.check_ok);
+        DialogManager.dialogAccept(activity, title, message, positiveClick, positiveMessage, R.drawable.check_ok);*/
     }
 
     private void updateJuego() {

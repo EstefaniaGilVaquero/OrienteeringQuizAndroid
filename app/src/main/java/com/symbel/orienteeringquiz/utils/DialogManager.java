@@ -118,6 +118,15 @@ public class DialogManager {
         }
     }
 
+    public static void dialogShow(final Activity activity, DialogInterface.OnDismissListener showDismiss, String message, int icon) {
+        dialog = new AlertDialog.Builder(activity)
+                .setMessage(message)
+                .setOnDismissListener(showDismiss)
+                .setIcon(R.drawable.check_ok)
+                .show();
+
+    }
+
 
     public static void dismiss() {
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
