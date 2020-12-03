@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.symbel.orienteeringquiz"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 3
         versionName "3"
     }
